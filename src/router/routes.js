@@ -6,6 +6,7 @@ import {store} from '../store/store'
 import homepage from '../components/homepage/homepage.vue';
 import medicHome from '../components/medic-home/medic-homepage.vue';
 import medicCalendar from '../components/medic-home/calendar.vue';
+import appointment from '../components/shared/appointment/appointment-home.vue';
 import medicDataAnalysis from '../components/medic-home/data-analysis.vue';
 import patientHome from '../components/patient-home/patient-homepage.vue';
 import adminHome from '../components/admin-home/admin-homepage.vue';
@@ -15,6 +16,7 @@ Vue.use(Router);
 Vue.use(store);
 
 const router = new Router ({
+  mode: 'history',
  routes: [
         {  path: '/' ,
             name: 'Home', 
@@ -28,7 +30,7 @@ const router = new Router ({
             path: '/MedicHome',
             name: 'MedicHome',
             beforeEnter: (to, from, next) => {
-                if((store.getters.authStatus) == 'medical-professional') {
+                if((store.getters.authStatus) === 'medical-professional') {
                     console.log("Secure entry");
                     console.log(store.getters.authStatus);
                     next()
@@ -57,7 +59,7 @@ const router = new Router ({
                 title: "CareAway Patient Home"
             },
             beforeEnter: (to, from, next) => {
-                if((store.getters.authStatus) == 'patient') {
+                if((store.getters.authStatus) === 'patient') {
                     console.log("Secure entry");
                     console.log(store.getters.authStatus);
                     next()
@@ -67,7 +69,6 @@ const router = new Router ({
                 }
             },
             component: patientHome
-
         },
 
         {
@@ -77,7 +78,7 @@ const router = new Router ({
                 title: "CareAway Admin Home"
             },
             beforeEnter: (to, from, next) => {
-                if((store.getters.authStatus) == 'system-admin') {
+                if((store.getters.authStatus) === 'system-admin') {
                     console.log("Secure entry");
                     console.log(store.getters.authStatus);
                     next()
